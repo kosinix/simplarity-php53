@@ -33,12 +33,12 @@ namespace Simplarity;
  */
 class Pimple implements \ArrayAccess
 {
-    private $values = array();
-    private $factories;
-    private $protected;
-    private $frozen = array();
-    private $raw = array();
-    private $keys = array();
+    protected $values = array();
+    protected $factories;
+    protected $protected;
+    protected $frozen = array();
+    protected $raw = array();
+    protected $keys = array();
 
     /**
      * Instantiate the container.
