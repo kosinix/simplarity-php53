@@ -33,12 +33,12 @@ namespace Simplarity;
  */
 class Pimple implements \ArrayAccess
 {
-    protected $values = array();
-    protected $factories;
-    protected $protected;
-    protected $frozen = array();
-    protected $raw = array();
-    protected $keys = array();
+    private $values = array();
+    private $factories;
+    private $protected;
+    private $frozen = array();
+    private $raw = array();
+    private $keys = array();
 
     /**
      * Instantiate the container.
@@ -66,8 +66,9 @@ class Pimple implements \ArrayAccess
      * as function names (strings) are callable (creating a function with
      * the same name as an existing parameter would break your container).
      *
-     * @param  string            $id    The unique identifier for the parameter or object
-     * @param  mixed             $value The value of the parameter or a closure to define an object
+     * @param string $id    The unique identifier for the parameter or object
+     * @param mixed  $value The value of the parameter or a closure to define an object
+     *
      * @throws \RuntimeException Prevent override of a frozen service
      */
     public function offsetSet($id, $value)
@@ -156,7 +157,7 @@ class Pimple implements \ArrayAccess
      */
     public function factory($callable)
     {
-        if (!is_object($callable) || !method_exists($callable, '__invoke')) {
+        if (!method_exists($callable, '__invoke')) {
             throw new \InvalidArgumentException('Service definition is not a Closure or invokable object.');
         }
 
@@ -178,7 +179,7 @@ class Pimple implements \ArrayAccess
      */
     public function protect($callable)
     {
-        if (!is_object($callable) || !method_exists($callable, '__invoke')) {
+        if (!method_exists($callable, '__invoke')) {
             throw new \InvalidArgumentException('Callable is not a Closure or invokable object.');
         }
 
@@ -260,5 +261,4 @@ class Pimple implements \ArrayAccess
         return array_keys($this->values);
     }
 
-    
 }

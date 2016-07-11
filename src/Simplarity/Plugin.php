@@ -2,11 +2,11 @@
 namespace Simplarity;
 
 class Plugin extends Pimple {
-    
-    public function run(){ 
-        foreach( $this->values as $key => $content ){ // Loop on contents
-            $content = $this[$key];
-            
+
+    public function run(){
+        foreach( $this->keys() as $key ){ // Loop on contents
+            $content = $this->raw( $key );
+
             if( is_object( $content ) ){
                 $reflection = new \ReflectionClass( $content );
                 if( $reflection->hasMethod( 'run' ) ){
